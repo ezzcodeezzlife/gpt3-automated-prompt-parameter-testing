@@ -20,21 +20,28 @@ export default function Home() {
   const testPrompt = async () => {
     const allcombs = getAllCombinations(ranges);
     for (let i = 0; i < allcombs.length; i++) {
-      const combination = allcombs[i];
       const response = await makeRequest(
         keyinput,
-        combination,
+        allcombs[i],
         promptinput,
         maxlength,
         model
       );
-      console.log(response);
+      if(response.error){
+        console.log(response.error);
+      } else {
+        //do something with response
+      }
+
+      //console.log(response.choices[0].text);
     }
   };
 
   return (
     <div className="flex flex-col px-4">
-      <h2>Test GPT & Codex Parameters for best results</h2>
+      <h2 className="underline">
+        Test GPT & Codex Parameters for best results
+      </h2>
       <input
         type="text"
         placeholder="OpenAI API Key"
@@ -63,7 +70,7 @@ export default function Home() {
       />
       <span>Mode: Complete</span>
       <span>Best of: 1</span>
-      <span>0.2 Steps</span>
+      <span>0.3 Steps</span>
       <p>
         Testing Parameters: Temparature, Top P, Frequency penalty, Presence
         penalty
