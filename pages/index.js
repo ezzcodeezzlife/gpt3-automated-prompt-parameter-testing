@@ -17,6 +17,8 @@ export default function Home() {
   const [maxlength, setMaxlength] = useState(0);
   const [model, setModel] = useState("code-davinci-001");
 
+  const [responses, setResponses] = useState([]);
+
   const testPrompt = async () => {
     const allcombs = getAllCombinations(ranges);
     for (let i = 0; i < allcombs.length; i++) {
@@ -30,7 +32,16 @@ export default function Home() {
       if(response.error){
         console.log(response.error);
       } else {
-        //do something with response
+        //append to responses
+        const myObj = {
+          response: response.choices[0].text,
+          temparature: allcombs[i][0],
+          top_p: allcombs[i][1],
+          frequency_penalty: allcombs[i][2],
+          presence_penalty: allcombs[i][3],
+        };
+        setResponses(responses => [...responses, myObj]);
+        console.log(responses);
       }
 
       //console.log(response.choices[0].text);
@@ -38,6 +49,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <div className="flex flex-col px-4">
       <h2 className="underline">
         Test GPT & Codex Parameters for best results
@@ -70,7 +82,7 @@ export default function Home() {
       />
       <span>Mode: Complete</span>
       <span>Best of: 1</span>
-      <span>0.3 Steps</span>
+      <span>0.5 Steps</span>
       <p>
         Testing Parameters: Temparature, Top P, Frequency penalty, Presence
         penalty
@@ -81,7 +93,23 @@ export default function Home() {
       >
         Test parameters
       </button>
-      {model}
     </div>
+
+    <div>
+      {responses ? (responses.map((response) => (
+        
+        <div className="p-3 m-3 border-2 bg-slate-100">
+          <b>
+            <p> Temparature: {response.temparature}</p>
+          <p> Top P: {response.top_p}</p>
+          <p> Frequency penalty: {response.frequency_penalty}</p>
+          <p> Presence penalty: {response.presence_penalty}</p>
+          </b>
+          <span>{response.response}</span>
+         </div>
+
+      ))) : (<></>)}
+    </div>
+    </>
   );
 }
