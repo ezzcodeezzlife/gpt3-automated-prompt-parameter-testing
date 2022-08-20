@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { getAllCombinations } from "../lib/getAllCombinations";
+import { getAllCombinations, makeRequest } from "../lib/getAllCombinations";
 const { Configuration, OpenAIApi } = require("openai");
 
-const models = ["code-davici-002", "text-davinci-002"];
+const models = ["code-davinci-001", "text-davinci-002"];
 
 // Order: Temparature, Top P, Frequency penalty, Presence penalty
 const ranges = [
@@ -17,17 +17,10 @@ export default function Home() {
   const [promptinput, setPromptinput] = useState("");
   const [maxlength, setMaxlength] = useState(0);
   const [model, setModel] = useState("");
-  const [steps, setSteps] = useState(0);
 
   const testPrompt = async () => {
-    const configuration = new Configuration({
-      apiKey: keyinput,
-    });
-    const openai = new OpenAIApi(configuration);
-
-
-    getAllCombinations(ranges, steps).forEach((combination) => {
-      console.log(combination);
+    getAllCombinations(ranges).forEach( async (combination) => {
+      (async () => console.log(await makeRequest(keyinput, combination, promptinput, maxlength, model)))()
     });
   };
 
@@ -70,6 +63,7 @@ export default function Home() {
       >
         Test parameters
       </button>
+      {model}
     </div>
   );
 }
