@@ -98,7 +98,7 @@ export default function Home() {
       <div>
         {responses ? (
           responses.map((response) => (
-            <div className="p-3 m-3 border-2 bg-slate-100">
+            <div key={Math.random()} className="p-3 m-3 border-2 bg-slate-100">
               <b>
                 <p> {response.temparature} Temparature </p>
                 <p> {response.top_p} Top P</p>
