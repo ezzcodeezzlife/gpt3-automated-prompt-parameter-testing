@@ -15,13 +15,19 @@ export default function Home() {
   const [keyinput, setKeyinput] = useState("");
   const [promptinput, setPromptinput] = useState("");
   const [maxlength, setMaxlength] = useState(0);
-  const [model, setModel] = useState("");
+  const [model, setModel] = useState("code-davinci-001");
 
   const testPrompt = async () => {
     const allcombs = getAllCombinations(ranges);
-    for(let i = 0 ; i < allcombs.length; i++){
+    for (let i = 0; i < allcombs.length; i++) {
       const combination = allcombs[i];
-      const response = await makeRequest(keyinput, combination, promptinput, maxlength, model);
+      const response = await makeRequest(
+        keyinput,
+        combination,
+        promptinput,
+        maxlength,
+        model
+      );
       console.log(response);
     }
   };
@@ -40,7 +46,10 @@ export default function Home() {
         placeholder="Enter your prompt"
       />
       <label>Select Model:</label>
-      <select onChange={(e) => setModel(e.target.value)} defaultValue="code-davinci-001">
+      <select
+        onChange={(e) => setModel(e.target.value)}
+        defaultValue="code-davinci-001"
+      >
         {models.map((model) => (
           <option key={Math.random()} value={model}>
             {model}
