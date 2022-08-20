@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { getAllCombinations, makeRequest } from "../lib/getAllCombinations";
-const { Configuration, OpenAIApi } = require("openai");
 
 const models = ["code-davinci-001", "text-davinci-002"];
 
@@ -19,9 +18,12 @@ export default function Home() {
   const [model, setModel] = useState("");
 
   const testPrompt = async () => {
-    getAllCombinations(ranges).forEach( async (combination) => {
-      (async () => console.log(await makeRequest(keyinput, combination, promptinput, maxlength, model)))()
-    });
+    const allcombs = getAllCombinations(ranges);
+    for(let i = 0 ; i < allcombs.length; i++){
+      const combination = allcombs[i];
+      const response = await makeRequest(keyinput, combination, promptinput, maxlength, model);
+      console.log(response);
+    }
   };
 
   return (
@@ -38,7 +40,7 @@ export default function Home() {
         placeholder="Enter your prompt"
       />
       <label>Select Model:</label>
-      <select onChange={(e) => setModel(e.target.value)}>
+      <select onChange={(e) => setModel(e.target.value)} defaultValue="code-davinci-001">
         {models.map((model) => (
           <option key={Math.random()} value={model}>
             {model}
