@@ -59,7 +59,7 @@ export default function Home() {
           placeholder="OpenAI API Key"
           onChange={(e) => setKeyinput(e.target.value)}
         />
-        <input
+        <textarea
           type="text"
           onChange={(e) => setPromptinput(e.target.value)}
           placeholder="Enter your prompt"
