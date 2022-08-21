@@ -22,6 +22,7 @@ export default function Home() {
   const [counter, setCounter] = useState(0);
 
   const testPrompt = async () => {
+    keyinput === "" || promptinput === "" || maxlength === 0 || model === "" ? (alert("Please refresh & fill out all fields")) : null;
     const allcombs = getAllCombinations(ranges);
     setAllcombinations(allcombs.length);
 
@@ -82,7 +83,7 @@ export default function Home() {
         </select>
         <input
           type="text"
-          placeholder="Maximum length"
+          placeholder="Maximum length (Max. 4000)"
           onChange={(e) => setMaxlength(e.target.value)}
         />
         <span>Mode: Complete</span>
@@ -92,6 +93,7 @@ export default function Home() {
           Testing Parameters: Temparature, Top P, Frequency penalty, Presence
           penalty
         </p>
+
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={testPrompt}
