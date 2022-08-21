@@ -94,12 +94,19 @@ export default function Home() {
           penalty
         </p>
 
-        <button
+
+        {allCombinations === 0 ? (<button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={testPrompt}
         >
           Test parameters
-        </button>
+        </button>):(<button
+          className="bg-gray-200	 hover:bg-grey text-white  font-bold py-2 px-4 rounded"
+        >
+          Testing
+        </button>)}
+        
+
       </div>
 
       <div>{counter + "/" + allCombinations} request completed</div>
