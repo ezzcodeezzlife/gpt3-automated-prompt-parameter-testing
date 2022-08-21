@@ -24,7 +24,7 @@ export default function Home() {
   const testPrompt = async () => {
     const allcombs = getAllCombinations(ranges);
     setAllcombinations(allcombs.length);
-    
+
     for (let i = 0; i < allcombs.length; i++) {
       setCounter(i);
       const response = await makeRequest(
@@ -87,7 +87,7 @@ export default function Home() {
         />
         <span>Mode: Complete</span>
         <span>Best of: 1</span>
-        <span>0.5 Steps</span>
+        <span>0.2 steps</span>
         <p>
           Testing Parameters: Temparature, Top P, Frequency penalty, Presence
           penalty
@@ -100,9 +100,7 @@ export default function Home() {
         </button>
       </div>
 
-      <div>
-        {   counter + "/" + allCombinations } requests completed
-      </div>
+      <div>{counter + "/" + allCombinations} request completed</div>
 
       <div>
         {responses ? (
