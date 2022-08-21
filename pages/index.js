@@ -16,12 +16,17 @@ export default function Home() {
   const [promptinput, setPromptinput] = useState("");
   const [maxlength, setMaxlength] = useState(0);
   const [model, setModel] = useState("code-davinci-001");
-
   const [responses, setResponses] = useState([]);
+
+  const [allCombinations, setAllcombinations] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   const testPrompt = async () => {
     const allcombs = getAllCombinations(ranges);
+    setAllcombinations(allcombs.length);
+    
     for (let i = 0; i < allcombs.length; i++) {
+      setCounter(i);
       const response = await makeRequest(
         keyinput,
         allcombs[i],
@@ -93,6 +98,10 @@ export default function Home() {
         >
           Test parameters
         </button>
+      </div>
+
+      <div>
+        {   counter + "/" + allCombinations } requests completed
       </div>
 
       <div>
