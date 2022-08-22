@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col px-4">
+      <div className="flex flex-col p-4 m-2 bg-blue-100 rounded-3xl">
         <h2 className="underline">
           Test GPT & Codex Parameters for best results
         </h2>
