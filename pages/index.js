@@ -4,12 +4,6 @@ import { getAllCombinations, makeRequest } from "../lib/getAllCombinations";
 const models = ["code-davinci-001", "text-davinci-002"];
 
 // Order: Temparature, Top P, Frequency penalty, Presence penalty
-const ranges = [
-  [0, 1],
-  [0, 1],
-  [0, 2],
-  [0, 2],
-];
 
 export default function Home() {
   const [keyinput, setKeyinput] = useState("");
@@ -18,12 +12,29 @@ export default function Home() {
   const [model, setModel] = useState("code-davinci-001");
   const [responses, setResponses] = useState([]);
 
+  const [minTemparatureInput, setMinTemparatureInput] = useState(0);
+  const [maxTemparatureInput, setMaxTemparatureInput] = useState(1);
+  const [minTopPInput, setMinTopPInput] = useState(0);
+  const [maxTopPInput, setMaxTopPInput] = useState(1);
+  const [minFrequencyPenaltyInput, setMinFrequencyPenaltyInput] = useState(0);
+  const [maxFrequencyPenaltyInput, setMaxFrequencyPenaltyInput] = useState(2);
+  const [minPresencePenaltyInput, setMinPresencePenaltyInput] = useState(0);
+  const [maxPresencePenaltyInput, setMaxPresencePenaltyInput] = useState(2);
+
   const [allCombinations, setAllcombinations] = useState(0);
   const [counter, setCounter] = useState(0);
 
   const testPrompt = async () => {
-    keyinput === "" || promptinput === "" || maxlength === 0 || model === "" ? (alert("Please refresh & fill out all fields")) : null;
-    const allcombs = getAllCombinations(ranges);
+    console.log("buttomPress");
+    keyinput === "" || promptinput === "" || maxlength === 0 || model === ""
+      ? alert("Please refresh & fill out all fields")
+      : null;
+    const allcombs = getAllCombinations([
+      [Number(minTemparatureInput), Number(maxTemparatureInput)],
+      [Number(minTopPInput), Number(maxTopPInput)],
+      [Number(minFrequencyPenaltyInput), Number(maxFrequencyPenaltyInput)],
+      [Number(minPresencePenaltyInput), Number(maxPresencePenaltyInput)],
+    ]);
     setAllcombinations(allcombs.length);
 
     for (let i = 0; i < allcombs.length; i++) {
@@ -88,25 +99,62 @@ export default function Home() {
         />
         <span>Mode: Complete</span>
         <span>Best of: 1</span>
-        <span>0.2 steps</span>
-        <p>
-          Testing Parameters: Temparature, Top P, Frequency penalty, Presence
-          penalty
-        </p>
+        <span>0.1 steps</span>
 
+        <p>Finetune parameters (possible ranges)</p>
+        <input
+          type="text"
+          placeholder="minTemparature (0)"
+          onChange={(e) => setMinTemparatureInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="maxTemparature (1)"
+          onChange={(e) => setMaxTemparatureInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="minTopP (0)"
+          onChange={(e) => setMinTopPInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="maxTopP (1)"
+          onChange={(e) => setMaxTopPInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="minFrequencyPenalty (0)"
+          onChange={(e) => setMinFrequencyPenaltyInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="maxFrequencyPenalty (2)"
+          onChange={(e) => setMaxFrequencyPenaltyInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="minPresencePenalty (0)"
+          onChange={(e) => setMinPresencePenaltyInput(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="maxPresencePenalty (2)"
+          onChange={(e) => setMaxPresencePenaltyInput(e.target.value)}
+        />
 
-        {allCombinations === 0 ? (<button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={testPrompt}
-        >
-          Test parameters
-        </button>):(<button
-          className="bg-gray-200	 hover:bg-grey text-white  font-bold py-2 px-4 rounded"
-        >
-          Testing
-        </button>)}
-        
-
+        {allCombinations === 0 ? (
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={testPrompt}
+          >
+            Test parameters
+          </button>
+        ) : (
+          <button className="bg-gray-200	 hover:bg-grey text-white  font-bold py-2 px-4 rounded">
+            Testing
+          </button>
+        )}
       </div>
 
       <div>{counter + "/" + allCombinations} request completed</div>
