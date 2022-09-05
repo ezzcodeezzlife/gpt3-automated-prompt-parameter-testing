@@ -1,5 +1,8 @@
 ![alt text](https://github.com/ezzcodeezzlife/gpt3-automated-prompt-parameter-testing/blob/main/img/screenshot.JPG)
 
+Test GTP3 & Codex parameters to get best results for your specific use case.
+
+Online at:
 https://gpt3-automated-prompt-parameter-testing.vercel.app/
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
